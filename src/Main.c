@@ -24,7 +24,7 @@ float Persistance = 50.0f;
 
 
 float Function_2D(float x,float y){
-	return PerlinNoise_2D_Get(x,y) * 2.0f;
+	return PerlinNoise_2D_Get(x,y) * 6.0f;
 }
 void Menu_Set(int m){
 	if(Menu==0 && m==1){
@@ -50,7 +50,7 @@ void Setup(AlxWindow* w){
 	WorldOrigin = (Vec3D){ 0.0f,0.0f,0.0f,1.0f };
 
 	cam = Camera_Make(
-		(Vec3D){ 0.0f,15.0f,-18.0f,1.0f },
+		(Vec3D){ 0.0f,15.0f,-13.0f,1.0f },
 		(Vec3D){ 3.14 * 0.25f,0.0f,0.0f,1.0f },
 		90.0f
 	);
@@ -124,8 +124,18 @@ void Update(AlxWindow* w){
 			const Vec3D p3 = { x1,Function_2D(FunctionOrigin.x + x1,FunctionOrigin.y + y2),y2,1.0f };
 			const Vec3D p4 = { x2,Function_2D(FunctionOrigin.x + x2,FunctionOrigin.y + y2),y2,1.0f };
 
-			Tri3D t1 = { p1,p4,p2,{},RED };
-			Tri3D t2 = { p1,p3,p4,{},RED };
+			Tri3D t1 = {
+				.p[0] = p1,
+				.p[1] = p4,
+				.p[2] = p2,
+				.c = (Shade){ .c = RED, .l = 1.0f }
+			};
+			Tri3D t2 = {
+				.p[0] = p1,
+				.p[1] = p3,
+				.p[2] = p4,
+				.c = (Shade){ .c = RED, .l = 1.0f }
+			};
 			//Tri3D t3 = { p1,p2,p4,{},RED };
 			//Tri3D t4 = { p1,p4,p3,{},RED };
 
